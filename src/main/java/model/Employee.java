@@ -1,5 +1,7 @@
 package model;
 
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
+
 import java.sql.Timestamp;
 
 public class Employee {
@@ -7,19 +9,39 @@ public class Employee {
     private String fullName;
     private String email;
     private String password;
+    private Boolean password_changed;
     private String department;
     private String role;
     private Timestamp createdAt;
 
-    public Employee(int employeeId, String fullName, String email, String password, String department, String role, Timestamp createdAt) {
+    public Boolean getPassword_changed() {
+        return password_changed;
+    }
+
+    public void setPassword_changed(Boolean password_changed) {
+        this.password_changed = password_changed;
+    }
+
+    public Employee(int employeeId, String fullName, String email, String password, Boolean password_changed, String department, String role, Timestamp createdAt) {
         this.employeeId = employeeId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
+        this.password_changed = password_changed;
         this.department = department;
         this.role = role;
         this.createdAt = createdAt;
     }
+
+//    public Employee(int employeeId, String fullName, String email, String password, String department, String role, Timestamp createdAt) {
+//        this.employeeId = employeeId;
+//        this.fullName = fullName;
+//        this.email = email;
+//        this.password = password;
+//        this.department = department;
+//        this.role = role;
+//        this.createdAt = createdAt;
+//    }
 
     public int getEmployeeId() {
         return employeeId;

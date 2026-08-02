@@ -22,17 +22,15 @@ public class EmployeeDAO {
             }
 
         }
-
     }
 
     public Employee map(ResultSet rs) throws SQLException {
-
-
 
         return new Employee(rs.getInt("employee_id"),
                 rs.getString("full_name"),
                 rs.getString("email"),
                 rs.getString("password"),
+                rs.getBoolean("password_changed"),
                 rs.getString("department"),
                 rs.getString("role"),      // Enum
                 rs.getTimestamp("created_at")
