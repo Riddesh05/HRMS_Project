@@ -2,5 +2,5 @@ package model;
 
 public enum EmployeeRole {
     ADMIN,
-    USER
+    EMPLOYEE
 }

@@ -388,12 +388,11 @@
                                 </c:choose>
 
                             </td>
-                                                        <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
+<c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
 
                                                             <td>
 
                                                                 <c:choose>
-
                                                                     <c:when test="${leave.status eq 'PENDING'}">
 
                                                                         <!-- Approve -->
