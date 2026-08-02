@@ -38,13 +38,10 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Employee Name = " + employee.getFullName());
             System.out.println("Session Object = " + session.getAttribute("loggingemployee"));
 
-            resp.sendRedirect("dashboard.jsp");
-
+            resp.sendRedirect("dashboard");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

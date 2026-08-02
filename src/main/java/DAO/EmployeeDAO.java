@@ -2,11 +2,9 @@ package DAO;
 
 import Connectionss.DBConnections;
 import model.Employee;
+import model.EmployeeRole;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class EmployeeDAO {
 
@@ -26,14 +24,15 @@ public class EmployeeDAO {
 
     public Employee map(ResultSet rs) throws SQLException {
 
+        Timestamp created_at = rs.getTimestamp("created_at");
         return new Employee(rs.getInt("employee_id"),
                 rs.getString("full_name"),
                 rs.getString("email"),
                 rs.getString("password"),
                 rs.getBoolean("password_changed"),
                 rs.getString("department"),
-                rs.getString("role"),      // Enum
-                rs.getTimestamp("created_at")
+                EmployeeRole.valueOf(rs.getString("role")),      // Enum
+                created_at.toLocalDateTime()
                 );
     }
 }
