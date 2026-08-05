@@ -8,7 +8,7 @@ public class DBConnections {
         String driver="com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/hrms";
         String user="root";
-        String password="riddesh123";
+        String password="root";
         Class.forName(driver);
         return DriverManager.getConnection(url,user,password);
     }
