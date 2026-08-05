@@ -1,7 +1,7 @@
-package Service;
+package Controller;
 
 import DAO.EmployeeDAO;
-import jakarta.servlet.RequestDispatcher;
+import Service.EmployeeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +15,9 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private final EmployeeDAO employeeDAO=new EmployeeDAO();
+   // private final EmployeeDAO employeeDAO=new EmployeeDAO();
+
+    private final EmployeeService employeeService=new EmployeeService();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,17 +25,21 @@ public class LoginServlet extends HttpServlet {
         String password=req.getParameter("password");
 
         try {
-            Employee employee=employeeDAO.findbyemailpassword(email,password);
+            Employee employee=employeeService.login(email,password);
 
-          //  req.setAttribute("name",employee.getFullName());
+            //req.setAttribute("name",employee.getFullName());
            if (employee==null)
            {
-               req.setAttribute("error","invalid login and password");
-               req.getRequestDispatcher("login.jsp").forward(req,resp);
+               req.setAttribute("error","Invalid login and password");
+               req.getRequestDispatcher("index.jsp").forward(req,resp);
                return;
            }
             HttpSession session = req.getSession();
             session.setAttribute("loggingemployee", employee);
+//            if (!employee.getPassword_changed()){
+//                resp.sendRedirect("changePassword.jsp");
+//                return;
+//            }
 
             System.out.println("Employee Name = " + employee.getFullName());
             System.out.println("Session Object = " + session.getAttribute("loggingemployee"));

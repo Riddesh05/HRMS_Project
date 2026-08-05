@@ -10,6 +10,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<%@ include file="includes/header.jsp" %>
 
 <head>
 
@@ -63,63 +64,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
 
-    <div class="container">
-
-        <a class="navbar-brand"
-           href="dashboard">
-
-            HRMS
-
-        </a>
-
-        <div class="navbar-nav ms-auto">
-
-            <a href="dashboard"
-               class="nav-link">
-
-                Dashboard
-
-            </a>
-
-            <a href="leave"
-               class="nav-link">
-
-                Leave
-
-            </a>
-
-            <a href="documents"
-               class="nav-link">
-
-                Documents
-
-            </a>
-
-            <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
-
-                <a href="employees"
-                   class="nav-link">
-
-                    Employees
-
-                </a>
-
-            </c:if>
-
-            <a href="logout"
-               class="nav-link">
-
-                Logout
-
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
 
 <div class="container mt-5">
 

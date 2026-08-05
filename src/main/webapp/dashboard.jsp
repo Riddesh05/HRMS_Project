@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="includes/header.jsp" %>
+
+<%@ page import="model.Employee" %>
 
 <%
     if(session.getAttribute("loggingemployee")==null){
@@ -9,382 +12,230 @@
 %>
 
 <!DOCTYPE html>
-
 <html>
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Dashboard</title>
+    <title>Dashboard</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
-<style>
-body{
+    <style>
 
-background:#f4f6fb;
+        .dashboard-card{
 
-}
+            transition:.3s;
 
-.navbar{
+        }
 
-background:#17172b;
+        .dashboard-card:hover{
 
-}
+            transform:translateY(-5px);
 
-.navbar-brand{
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
 
-font-weight:bold;
+        }
 
-}
-
-.nav-link{
-
-color:white !important;
-
-margin-left:15px;
-
-}
-
-.dashboard-card{
-
-border:none;
-
-border-radius:15px;
-
-transition:.3s;
-
-}
-
-.dashboard-card:hover{
-
-transform:translateY(-5px);
-
-box-shadow:0 10px 25px rgba(0,0,0,.15);
-
-}
-
-.badge{
-
-font-size:13px;
-
-}
-
-.table td{
-
-vertical-align:middle;
-
-}
-
-</style>
+    </style>
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-
-<div class="container">
-
-<a class="navbar-brand">
-
-HRMS
-
-</a>
-
-<div class="navbar-nav ms-auto">
-
-<a href="dashboard"
-class="nav-link">
-
-Dashboard
-
-</a>
-
-<a href="leave"
-class="nav-link">
-
-Leave
-
-</a>
-
-<a href="documents"
-class="nav-link">
-
-Documents
-
-</a>
-
-<c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
-
-<a href="employees"
-class="nav-link">
-
-Employees
-
-</a>
-
-</c:if>
-
-<a href="logout"
-class="nav-link">
-
-Sign out
-
-</a>
-
-</div>
-
-</div>
-
-</nav>
 
 <div class="container mt-5">
 
-<h2>
+    <div class="d-flex justify-content-between align-items-center">
 
-Welcome,
+        <div>
 
-${sessionScope.loggingemployee.fullName}
+            <h2>
+                Welcome, ${sessionScope.loggingemployee.fullName}
+            </h2>
 
-</h2>
+            <p class="text-secondary mb-0">
+                ${sessionScope.loggingemployee.department}
+                •
+                ${sessionScope.loggingemployee.role}
+            </p>
 
-<p class="text-secondary">
+        </div>
 
-${sessionScope.loggingemployee.department}
+        <c:if test="${!sessionScope.loggingemployee.password_changed}">
+            <a href="changePassword"
+               class="btn btn-warning">
+                Change Password
+            </a>
+        </c:if>
 
-•
+    </div>
 
-${sessionScope.loggingemployee.role}
+    <div class="row mt-4">
 
-</p>
+        <div class="col-md-4">
 
-<div class="row mt-4">
+            <div class="card dashboard-card shadow-sm">
 
-<div class="col-md-4">
+                <div class="card-body">
 
-<div class="card dashboard-card shadow-sm">
+                    <h4>Leave</h4>
 
-<div class="card-body">
+                    <p>Submit and track requests.</p>
 
-<h4>
+                    <a href="leave" class="btn btn-primary btn-sm">
+                        Open
+                    </a>
 
-Leave
+                </div>
 
-</h4>
+            </div>
 
-<p>
+        </div>
 
-Submit and track requests.
+        <div class="col-md-4">
 
-</p>
+            <div class="card dashboard-card shadow-sm">
 
-<a href="leave"
-class="btn btn-primary btn-sm">
+                <div class="card-body">
 
-Open
+                    <h4>Documents</h4>
 
-</a>
+                    <p>Upload secure personal files.</p>
 
-</div>
+                    <a href="documents" class="btn btn-primary btn-sm">
+                        Open
+                    </a>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-<div class="col-md-4">
+        </div>
 
-<div class="card dashboard-card shadow-sm">
+        <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
 
-<div class="card-body">
+            <div class="col-md-4">
 
-<h4>
+                <div class="card dashboard-card shadow-sm">
 
-Documents
+                    <div class="card-body">
 
-</h4>
+                        <h4>Employees</h4>
 
-<p>
+                        <p>Manage employee accounts.</p>
 
-Upload secure personal files.
+                        <a href="employees"
+                           class="btn btn-primary btn-sm">
 
-</p>
+                            Open
 
-<a href="documents"
-class="btn btn-primary btn-sm">
+                        </a>
 
-Open
+                    </div>
 
-</a>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </c:if>
 
-</div>
+    </div>
 
-<c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
+    <div class="card shadow mt-5">
 
-<div class="col-md-4">
+        <div class="card-body">
 
-<div class="card dashboard-card shadow-sm">
+            <h4 class="mb-3">
 
-<div class="card-body">
+                Recent Leave Requests
 
-<h4>
+            </h4>
 
-Employees
+            <table class="table table-hover">
 
-</h4>
+                <thead>
 
-<p>
+                <tr>
 
-Manage employee accounts.
+                    <th>Employee</th>
 
-</p>
+                    <th>Type</th>
 
-<a href="employees"
-class="btn btn-primary btn-sm">
+                    <th>Dates</th>
 
-Open
+                    <th>Status</th>
 
-</a>
+                </tr>
 
-</div>
+                </thead>
 
-</div>
+                <tbody>
 
-</div>
+                <c:forEach items="${recentLeaves}" var="leave">
 
-</c:if>
+                    <tr>
 
-</div>
+                        <td>${leave.employeeName}</td>
 
-<div class="card shadow mt-5">
+                        <td>${leave.leaveType}</td>
 
-<div class="card-body">
+                        <td>
+                            ${leave.startDate}
+                            to
+                            ${leave.endDate}
+                        </td>
 
-<h4 class="mb-3">
+                        <td>
 
-Recent Leave Requests
+                            <c:choose>
 
-</h4>
+                                <c:when test="${leave.status eq 'APPROVED'}">
 
-<table class="table table-hover">
+                                    <span class="badge bg-success">
 
-<thead>
+                                        APPROVED
 
-<tr>
+                                    </span>
 
-<th>
+                                </c:when>
 
-Employee
+                                <c:when test="${leave.status eq 'REJECTED'}">
 
-</th>
+                                    <span class="badge bg-danger">
 
-<th>
+                                        REJECTED
 
-Type
+                                    </span>
 
-</th>
+                                </c:when>
 
-<th>
+                                <c:otherwise>
 
-Dates
+                                    <span class="badge bg-warning text-dark">
 
-</th>
+                                        PENDING
 
-<th>
+                                    </span>
 
-Status
+                                </c:otherwise>
 
-</th>
+                            </c:choose>
 
-</tr>
+                        </td>
 
-</thead>
+                    </tr>
 
-<tbody>
+                </c:forEach>
 
-<c:forEach items="${recentLeaves}" var="leave">
+                </tbody>
 
-<tr>
+            </table>
 
-<td>
+        </div>
 
-${leave.employeeName}
-
-</td>
-
-<td>
-
-${leave.leaveType}
-
-</td>
-
-<td>
-
-${leave.startDate}
-
-to
-
-${leave.endDate}
-
-</td>
-
-<td>
-
-<c:choose>
-
-<c:when test="${leave.status eq 'APPROVED'}">
-
-<span class="badge bg-success">
-
-APPROVED
-
-</span>
-
-</c:when>
-
-<c:when test="${leave.status eq 'REJECTED'}">
-
-<span class="badge bg-danger">
-
-REJECTED
-
-</span>
-
-</c:when>
-
-<c:otherwise>
-
-<span class="badge bg-warning text-dark">
-
-PENDING
-
-</span>
-
-</c:otherwise>
-
-</c:choose>
-
-</td>
-
-</tr>
-
-</c:forEach>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
 </body>
-
 </html>

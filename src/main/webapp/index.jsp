@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,7 @@
 
         <h2 class="text-center mb-4">Employee Login</h2>
 
+
         <form action="login" method="post">
 
             <div class="mb-3">
@@ -46,7 +48,11 @@
                        placeholder="Enter Password"
                        required>
             </div>
-
+<c:if test="${not empty error}">
+    <div class="alert alert-danger">
+        ${error}
+    </div>
+</c:if>
             <button type="submit" class="btn btn-primary w-100">
                 Login
             </button>

@@ -1,10 +1,12 @@
-package Service;
+package Controller;
 
 import DAO.LeaveDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.*;
+import model.Employee;
+import model.EmployeeRole;
 import model.LeaveRequest;
 
 import java.io.IOException;
@@ -30,14 +32,27 @@ public class DashboardServlet extends HttpServlet {
             return;
 
         }
+        Employee employee = (Employee) session.getAttribute("loggingemployee");
 
         try{
-            List<LeaveRequest> list = leaveDAO.findAll();
-            System.out.println("Total Leaves = " + list.size());
+
+            List<LeaveRequest> leaveList;
+
+            if (employee.getRole() == EmployeeRole.ADMIN) {
+
+                leaveList = leaveDAO.findAll();
+
+            } else {
+
+                leaveList = leaveDAO.findByEmployee(employee.getEmployeeId());
+
+            }
+            System.out.println("Total Leaves = " + leaveList.size());
+
 
             request.setAttribute(
                     "recentLeaves",
-                    list
+                    leaveList
             );
 
             request.getRequestDispatcher("dashboard.jsp")
