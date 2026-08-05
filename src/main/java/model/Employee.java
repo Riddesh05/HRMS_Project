@@ -18,6 +18,10 @@ public class Employee {
         return password_changed;
     }
 
+    public boolean isPasswordChanged() {
+        return password_changed;
+    }
+
     public void setPassword_changed(Boolean password_changed) {
         this.password_changed = password_changed;
     }

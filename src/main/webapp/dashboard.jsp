@@ -127,6 +127,12 @@ Employees
 
 </c:if>
 
+<a href="change-password"
+   class="nav-link">
+    Change Password
+</a>
+
+
 <a href="logout"
 class="nav-link">
 
@@ -259,6 +265,30 @@ Open
 
 </c:if>
 
+
+
+<div class="col-md-4">
+
+    <div class="card dashboard-card shadow-sm">
+
+        <div class="card-body">
+
+            <h4>Profile</h4>
+
+            <p>
+                View your personal information.
+            </p>
+
+            <a href="profile"
+               class="btn btn-primary btn-sm">
+                Open
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 </div>
 
 <div class="card shadow mt-5">
