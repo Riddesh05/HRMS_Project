@@ -3,7 +3,7 @@
 
 <%
     if(session.getAttribute("loggingemployee")==null){
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("dashboard");
         return;
     }
 %>
@@ -87,12 +87,9 @@ vertical-align:middle;
 
 <div class="container">
 
-<a class="navbar-brand">
-
-HRMS
-
+<a class="navbar-brand" href="dashboard">
+    HRMS
 </a>
-
 <div class="navbar-nav ms-auto">
 
 <a href="dashboard"

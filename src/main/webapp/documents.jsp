@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="includes/header.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -41,45 +43,6 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-
-    <div class="container">
-
-        <a class="navbar-brand fw-bold">
-            HRMS
-        </a>
-
-        <div class="navbar-nav ms-auto">
-
-            <a href="dashboard" class="nav-link">
-                Dashboard
-            </a>
-
-            <a href="leave" class="nav-link">
-                Leave
-            </a>
-
-            <a href="documents" class="nav-link">
-                Documents
-            </a>
-
-            <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
-
-                <a href="employees" class="nav-link">
-                    Employees
-                </a>
-
-            </c:if>
-
-            <a href="logout" class="nav-link">
-                Sign out
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
 
 <div class="container mt-5">
 

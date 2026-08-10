@@ -7,13 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Employee;
-import model.EmployeeRole;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/deleteEmployee")
-public class DeleteEmployeeServlet extends HttpServlet {
-
+@WebServlet("/employees")
+public class EmployeeServlet extends HttpServlet {
     private final EmployeeService employeeService = new EmployeeService();
 
     @Override
@@ -21,25 +20,18 @@ public class DeleteEmployeeServlet extends HttpServlet {
                          HttpServletResponse resp)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-
+        List<Employee> employeeList = null;
         try {
-
-            Employee employee = employeeService.findById(id);
-
-            if(employee.getRole() == EmployeeRole.ADMIN) {
-
+            employeeList = employeeService.getAllEmployees();
+        } catch (Exception e) {
+            if ("EMAIL_ALREADY_EXISTS".equals(e.getMessage())) {
+                req.getSession().setAttribute("error", "Employee with this email already exists.");
                 resp.sendRedirect("employees");
                 return;
-
             }
-
-            employeeService.deleteEmployee(id);
-
-            resp.sendRedirect("employees");
-
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        req.setAttribute("employeeList", employeeList);
+        req.getRequestDispatcher("addEmployee.jsp").forward(req, resp);
     }
 }

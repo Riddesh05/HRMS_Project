@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="includes/header.jsp" %>
+
 
 <%
     if (session.getAttribute("loggingemployee") == null) {
@@ -10,8 +12,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="includes/header.jsp" %>
-
 <head>
 
     <meta charset="UTF-8">
@@ -26,19 +26,6 @@
 
         body{
             background:#f4f6fb;
-        }
-
-        .navbar{
-            background:#17172b;
-        }
-
-        .navbar-brand{
-            font-weight:bold;
-        }
-
-        .nav-link{
-            color:white !important;
-            margin-left:15px;
         }
 
         .card{

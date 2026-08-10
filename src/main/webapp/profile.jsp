@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="includes/header.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -14,15 +16,6 @@
             background:#f4f6fb;
         }
 
-        .navbar{
-            background:#17172b;
-        }
-
-        .nav-link{
-            color:white !important;
-            margin-left:15px;
-        }
-
         .profile-card{
             border:none;
             border-radius:15px;
@@ -32,27 +25,6 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-
-    <div class="container">
-
-        <a class="navbar-brand fw-bold">
-            HRMS
-        </a>
-
-        <div class="navbar-nav ms-auto">
-
-            <a href="dashboard" class="nav-link">Dashboard</a>
-            <a href="leave" class="nav-link">Leave</a>
-            <a href="documents" class="nav-link">Documents</a>
-            <a href="profile" class="nav-link">Profile</a>
-            <a href="logout" class="nav-link">Sign Out</a>
-
-        </div>
-
-    </div>
-
-</nav>
 
 <div class="container mt-5">
 
