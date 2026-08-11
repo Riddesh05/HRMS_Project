@@ -17,25 +17,17 @@ public class DeleteEmployeeServlet extends HttpServlet {
     private final EmployeeService employeeService = new EmployeeService();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        int id = Integer.parseInt(req.getParameter("id"));
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException {
+        int id=Integer.parseInt(req.getParameter("id"));
 
         try {
-
             Employee employee = employeeService.findById(id);
-
             if(employee.getRole() == EmployeeRole.ADMIN) {
-
                 resp.sendRedirect("employees");
                 return;
 
             }
-
             employeeService.deleteEmployee(id);
-
             resp.sendRedirect("employees");
 
         } catch (Exception e) {

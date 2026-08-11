@@ -17,8 +17,6 @@ import model.Employee;
 import java.io.IOException;
 import java.util.List;
 
-
-
 @WebServlet("/documents")
 @MultipartConfig
 public class DocumentServlet extends HttpServlet {
@@ -59,8 +57,8 @@ public class DocumentServlet extends HttpServlet {
             String fileName=filePart.getSubmittedFileName();
             String uploadPath="C:\\Shreya\\hrms\\src\\main\\webapp\\uploads";
 
-            OutputStream outputStream = null;
-            InputStream inputStream = null;
+            OutputStream outputStream=null;
+            InputStream inputStream=null;
 
             try {
                 outputStream=new FileOutputStream(uploadPath+File.separator+fileName);
@@ -69,14 +67,14 @@ public class DocumentServlet extends HttpServlet {
                 int read;
                 byte[] buffer=new byte[1024];
                 while ((read=inputStream.read(buffer)) != -1) {
-
                     outputStream.write(buffer,0,read);
                 }
+
             } finally {
-                if (inputStream != null) {
+                if (inputStream!=null) {
                     inputStream.close();
                 }
-                if (outputStream != null) {
+                if (outputStream!=null) {
                     outputStream.close();
                 }
             }
