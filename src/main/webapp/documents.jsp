@@ -174,8 +174,10 @@
                         <th>File Name</th>
                         <th>Size (KB)</th>
                         <th>Download</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <c:if test="${loggingemployee.role != 'ADMIN'}">
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </c:if>
                     </tr>
 
                 </thead>
@@ -203,22 +205,24 @@
                                     </a>
                                 </td>
 
-                                <td>
-                                    <a href="editDocument?documentId=${doc.documentId}"
+                                <c:if test="${loggingemployee.role != 'ADMIN'}">
+
+                                    <td>
+                                        <a href="editDocument?documentId=${doc.documentId}"
                                            class="btn btn-warning btn-sm">
                                             Edit
-                                    </a>
-                                </td>
+                                        </a>
+                                    </td>
 
-                                <td>
-                                    <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="showDeleteModal(${doc.documentId})">
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="showDeleteModal(${doc.documentId})">
+                                            Delete
+                                        </button>
+                                    </td>
 
-                                        Delete
-
-                                    </button>
-                                </td>
+                                </c:if>
 
                             </tr>
 
