@@ -166,17 +166,17 @@
 
                 <thead>
 
-                <tr>
-
                     <tr>
+                        <c:if test="${loggingemployee.role == 'ADMIN'}">
+                            <th>Employee Name</th>
+                        </c:if>
                         <th>Document Type</th>
                         <th>File Name</th>
                         <th>Size (KB)</th>
                         <th>Download</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
-
-
-                </tr>
 
                 </thead>
 
@@ -189,11 +189,11 @@
                         <c:forEach items="${documents}" var="doc">
 
                             <tr>
-
+                                <c:if test="${loggingemployee.role == 'ADMIN'}">
+                                    <td>${doc.employeeName}</td>
+                                </c:if>
                                 <td>${doc.documentType}</td>
-
                                 <td>${doc.fileName}</td>
-
                                 <td>${doc.fileSize / 1024} KB</td>
 
                                 <td>
@@ -201,6 +201,23 @@
                                        class="btn btn-success btn-sm">
                                         Download
                                     </a>
+                                </td>
+
+                                <td>
+                                    <a href="editDocument?documentId=${doc.documentId}"
+                                           class="btn btn-warning btn-sm">
+                                            Edit
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-danger btn-sm"
+                                            onclick="showDeleteModal(${doc.documentId})">
+
+                                        Delete
+
+                                    </button>
                                 </td>
 
                             </tr>
@@ -236,5 +253,73 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Delete Confirmation Modal -->
+
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+
+                <h5 class="modal-title">
+                    Confirm Delete
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                Are you sure you want to delete this document?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <a id="deleteBtn"
+                   href="#"
+                   class="btn btn-danger">
+
+                    Delete
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+function showDeleteModal(documentId)
+{
+    document.getElementById("deleteBtn").href =
+            "deleteDocument?documentId=" + documentId;
+
+    new bootstrap.Modal(
+            document.getElementById("deleteModal")
+    ).show();
+}
+
+</script>
 </body>
 </html>

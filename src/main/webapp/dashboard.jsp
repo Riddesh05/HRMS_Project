@@ -3,7 +3,7 @@
 
 <%
     if(session.getAttribute("loggingemployee")==null){
-        response.sendRedirect("dashboard");
+        response.sendRedirect("index.jsp");
         return;
     }
 %>

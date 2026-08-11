@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Employee Name = " + employee.getFullName());
             System.out.println("Session Object = " + session.getAttribute("loggingemployee"));
 
-            session.setAttribute("loggingemployee", employee);
+        //    session.setAttribute("loggingemployee", employee);
 
             if(!employee.isPasswordChanged()) {
                 resp.sendRedirect("dashboard");
