@@ -412,7 +412,7 @@ body{
 
         <div class="feature">
             <i class="bi bi-calendar-check"></i>
-            <span>Simplified Attendance & Leave</span>
+            <span>Simplified Leave</span>
         </div>
 
         <div class="feature">

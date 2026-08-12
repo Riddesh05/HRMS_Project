@@ -32,64 +32,40 @@ public class EditDocumentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req,HttpServletResponse resp)throws ServletException, IOException {
         try {
-
-            int documentId =
-                    Integer.parseInt(req.getParameter("documentId"));
-
-            String documentType =
-                    req.getParameter("documentType");
-
-            Document oldDocument =
-                    documentDAO.findById(documentId);
-
+            int documentId=Integer.parseInt(req.getParameter("documentId"));
+            String documentType=req.getParameter("documentType");
+            Document oldDocument=documentDAO.findById(documentId);
             if(oldDocument == null){
                 resp.sendRedirect("documents");
                 return;
             }
 
-            Part filePart = req.getPart("document");
+            Part filePart=req.getPart("document");
 
-            // User only changed document type
-            if(filePart == null || filePart.getSize() == 0){
-
+            if(filePart==null||filePart.getSize() ==0){
                 oldDocument.setDocumentType(documentType);
-
                 documentDAO.update(oldDocument);
-
                 resp.sendRedirect("documents");
                 return;
             }
 
-            // Delete old file
-            File oldFile = new File(oldDocument.getFilePath());
-
+            File oldFile =new File(oldDocument.getFilePath());
             if(oldFile.exists()){
                 oldFile.delete();
             }
 
-            // Save new file
-            String fileName = filePart.getSubmittedFileName();
-
-            String uploadPath =
-                    getServletContext().getRealPath("/uploads");
-
+            String fileName=filePart.getSubmittedFileName();
+            String uploadPath=getServletContext().getRealPath("/uploads");
             File uploadDir = new File(uploadPath);
 
             if(!uploadDir.exists()){
                 uploadDir.mkdirs();
             }
-
-            String filePath =
-                    uploadPath + File.separator + fileName;
-
+            String filePath=uploadPath+File.separator+fileName;
             filePart.write(filePath);
-
-            Document document = new Document();
+            Document document=new Document();
 
             document.setDocumentId(documentId);
             document.setDocumentType(documentType);
@@ -99,7 +75,6 @@ public class EditDocumentServlet extends HttpServlet {
             document.setFileSize(filePart.getSize());
 
             documentDAO.update(document);
-
             resp.sendRedirect("documents");
 
         } catch (Exception e) {

@@ -16,30 +16,17 @@ public class DeleteDocumentServlet extends HttpServlet {
     private final DocumentDAO documentDAO = new DocumentDAO();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws IOException {
-
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp)throws IOException {
         try {
-
-            int documentId =
-                    Integer.parseInt(req.getParameter("documentId"));
-
-            Document document =
-                    documentDAO.findById(documentId);
-
-            if(document != null){
-
-                File file =
-                        new File(document.getFilePath());
-
+            int documentId=Integer.parseInt(req.getParameter("documentId"));
+            Document document=documentDAO.findById(documentId);
+            if(document!=null){
+                File file=new File(document.getFilePath());
                 if(file.exists()){
                     file.delete();
                 }
-
                 documentDAO.delete(documentId);
             }
-
             resp.sendRedirect("documents");
 
         } catch (Exception e) {
