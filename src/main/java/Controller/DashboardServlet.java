@@ -27,7 +27,7 @@ public class DashboardServlet extends HttpServlet {
 
         if(session==null || session.getAttribute("loggingemployee")==null){
 
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("index.jsp");
 
             return;
 

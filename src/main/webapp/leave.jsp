@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ include file="includes/header.jsp" %>
 
-
 <%
     if (session.getAttribute("loggingemployee") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("index.jsp");
         return;
     }
 %>
@@ -25,24 +24,114 @@
     <style>
 
         body{
-            background:#f4f6fb;
+            background:linear-gradient(135deg,#eeeaff,#eef6ff);
+            font-family:"Segoe UI",sans-serif;
         }
 
         .card{
-            border:none;
-            border-radius:15px;
+            border:0;
+            border-radius:18px;
+            background:linear-gradient(145deg,#ffffff,#f7f8ff);
+            transition:.3s;
         }
 
-        .table td{
-            vertical-align:middle;
+        .card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 15px 30px rgba(70,80,180,.15)!important;
+        }
+
+        h2{
+            color:#202a4d;
+            font-weight:700;
+        }
+
+        h4{
+            color:#384579;
+            font-weight:600;
+        }
+
+        .form-label{
+            color:#46517d;
+            font-weight:600;
+        }
+
+        .form-control,
+        .form-select{
+            border:1px solid #dfe3f2;
+            border-radius:10px;
+            color:#384579;
+        }
+
+        .form-control:focus,
+        .form-select:focus{
+            border-color:#5145e5;
+            box-shadow:0 0 0 3px rgba(81,69,229,.12);
         }
 
         textarea{
             resize:none;
         }
 
+        .btn-primary{
+            border:0;
+            border-radius:10px;
+            background:linear-gradient(90deg,#5145e5,#2869e8);
+            transition:.3s;
+        }
+
+        .btn-primary:hover{
+            transform:translateY(-2px);
+            box-shadow:0 8px 18px #4264e855;
+        }
+
+        .table thead{
+            background:#f1f3ff!important;
+        }
+
+        .table thead th{
+            color:#46517d;
+            font-weight:600;
+            border:0;
+        }
+
+        .table td{
+            color:#667085;
+            vertical-align:middle;
+        }
+
         .badge{
-            font-size:13px;
+            font-size:12px;
+            padding:7px 11px;
+            border-radius:20px;
+        }
+
+        .bg-success{
+            background:#d9f7e8!important;
+            color:#16804b!important;
+        }
+
+        .bg-danger{
+            background:#ffe0e0!important;
+            color:#c03939!important;
+        }
+
+        .bg-warning{
+            background:#fff0c2!important;
+            color:#806000!important;
+        }
+
+        .btn-success{
+            border:0;
+            border-radius:10px;
+            background:#d9f7e8;
+            color:#16804b;
+        }
+
+        .btn-danger{
+            border:0;
+            border-radius:10px;
+            background:#ffe0e0;
+            color:#c03939;
         }
 
     </style>
@@ -51,22 +140,16 @@
 
 <body>
 
-
-
 <div class="container mt-5">
 
     <h2 class="mb-4">
-
         Leave Management
-
     </h2>
 
     <c:if test="${not empty sessionScope.success}">
 
         <div class="alert alert-success">
-
             ${sessionScope.success}
-
         </div>
 
         <c:remove var="success" scope="session"/>
@@ -76,9 +159,7 @@
     <c:if test="${not empty error}">
 
         <div class="alert alert-danger">
-
             ${error}
-
         </div>
 
     </c:if>
@@ -90,9 +171,7 @@
         <div class="card-body">
 
             <h4 class="mb-4">
-
                 Apply Leave
-
             </h4>
 
             <form action="leave"
@@ -107,9 +186,7 @@
                     <div class="col-md-4 mb-3">
 
                         <label class="form-label">
-
                             Leave Type
-
                         </label>
 
                         <select class="form-select"
@@ -145,9 +222,7 @@
                     <div class="col-md-4 mb-3">
 
                         <label class="form-label">
-
                             Start Date
-
                         </label>
 
                         <input type="date"
@@ -161,9 +236,7 @@
                     <div class="col-md-4 mb-3">
 
                         <label class="form-label">
-
                             End Date
-
                         </label>
 
                         <input type="date"
@@ -179,9 +252,7 @@
                 <div class="mb-3">
 
                     <label class="form-label">
-
                         Reason
-
                     </label>
 
                     <textarea class="form-control"
@@ -193,9 +264,7 @@
                 </div>
 
                 <button class="btn btn-primary">
-
                     Apply Leave
-
                 </button>
 
             </form>
@@ -211,35 +280,26 @@
         <div class="card-body">
 
             <h4 class="mb-3">
-
                 Leave History
-
             </h4>
 
             <div class="table-responsive">
 
                 <table class="table table-hover">
 
-                    <thead class="table-dark">
+                    <thead >
 
                     <tr>
 
                         <th>Employee</th>
-
                         <th>Leave Type</th>
-
                         <th>Start Date</th>
-
                         <th>End Date</th>
-
                         <th>Reason</th>
-
                         <th>Status</th>
 
                         <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
-
                             <th>Action</th>
-
                         </c:if>
 
                     </tr>
@@ -254,33 +314,23 @@
                         <tr>
 
                             <td>
-
                                 ${leave.employeeName}
-
                             </td>
 
                             <td>
-
                                 ${leave.leaveType}
-
                             </td>
 
                             <td>
-
                                 ${leave.startDate}
-
                             </td>
 
                             <td>
-
                                 ${leave.endDate}
-
                             </td>
 
                             <td>
-
                                 ${leave.reason}
-
                             </td>
 
                             <td>
@@ -290,9 +340,7 @@
                                     <c:when test="${leave.status eq 'APPROVED'}">
 
                                         <span class="badge bg-success">
-
                                             Approved
-
                                         </span>
 
                                     </c:when>
@@ -300,9 +348,7 @@
                                     <c:when test="${leave.status eq 'REJECTED'}">
 
                                         <span class="badge bg-danger">
-
                                             Rejected
-
                                         </span>
 
                                     </c:when>
@@ -310,9 +356,7 @@
                                     <c:otherwise>
 
                                         <span class="badge bg-warning text-dark">
-
                                             Pending
-
                                         </span>
 
                                     </c:otherwise>
@@ -320,128 +364,126 @@
                                 </c:choose>
 
                             </td>
-<c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
 
-                                                            <td>
+                            <c:if test="${sessionScope.loggingemployee.role eq 'ADMIN'}">
 
-                                                                <c:choose>
-                                                                    <c:when test="${leave.status eq 'PENDING'}">
+                                <td>
 
-                                                                        <!-- Approve -->
+                                    <c:choose>
 
-                                                                        <form action="leave"
-                                                                              method="post"
-                                                                              style="display:inline;">
+                                        <c:when test="${leave.status eq 'PENDING'}">
 
-                                                                            <input type="hidden"
-                                                                                   name="action"
-                                                                                   value="approve">
+                                            <!-- Approve -->
 
-                                                                            <input type="hidden"
-                                                                                   name="leaveId"
-                                                                                   value="${leave.leaveId}">
+                                            <form action="leave"
+                                                  method="post"
+                                                  style="display:inline;">
 
-                                                                            <button type="submit"
-                                                                                    class="btn btn-success btn-sm">
+                                                <input type="hidden"
+                                                       name="action"
+                                                       value="approve">
 
-                                                                                Approve
+                                                <input type="hidden"
+                                                       name="leaveId"
+                                                       value="${leave.leaveId}">
 
-                                                                            </button>
+                                                <button type="submit"
+                                                        class="btn btn-success btn-sm">
 
-                                                                        </form>
+                                                    Approve
 
-                                                                        <!-- Reject -->
+                                                </button>
 
-                                                                        <form action="leave"
-                                                                              method="post"
-                                                                              style="display:inline;">
+                                            </form>
 
-                                                                            <input type="hidden"
-                                                                                   name="action"
-                                                                                   value="reject">
+                                            <!-- Reject -->
 
-                                                                            <input type="hidden"
-                                                                                   name="leaveId"
-                                                                                   value="${leave.leaveId}">
+                                            <form action="leave"
+                                                  method="post"
+                                                  style="display:inline;">
 
-                                                                            <button type="submit"
-                                                                                    class="btn btn-danger btn-sm">
+                                                <input type="hidden"
+                                                       name="action"
+                                                       value="reject">
 
-                                                                                Reject
+                                                <input type="hidden"
+                                                       name="leaveId"
+                                                       value="${leave.leaveId}">
 
-                                                                            </button>
+                                                <button type="submit"
+                                                        class="btn btn-danger btn-sm">
 
-                                                                        </form>
+                                                    Reject
 
-                                                                    </c:when>
+                                                </button>
 
-                                                                    <c:otherwise>
+                                            </form>
 
-                                                                        <span class="text-secondary">
+                                        </c:when>
 
-                                                                            -
+                                        <c:otherwise>
 
-                                                                        </span>
+                                            <span class="text-secondary">
+                                                -
+                                            </span>
 
-                                                                    </c:otherwise>
+                                        </c:otherwise>
 
-                                                                </c:choose>
+                                    </c:choose>
 
-                                                            </td>
+                                </td>
 
-                                                        </c:if>
+                            </c:if>
 
-                                                    </tr>
+                        </tr>
 
-                                                </c:forEach>
+                    </c:forEach>
 
-                                                </tbody>
+                    </tbody>
 
-                                            </table>
+                </table>
 
-                                        </div>
+            </div>
 
-                                    </div>
+        </div>
 
-                                </div>
+    </div>
 
-                            </div>
+</div>
 
-                            <script>
+<script>
 
-                                const startDate = document.getElementById("startDate");
-                                const endDate = document.getElementById("endDate");
+    const startDate = document.getElementById("startDate");
+    const endDate = document.getElementById("endDate");
 
-                                const today = new Date();
+    const today = new Date();
 
-                                const yyyy = today.getFullYear();
+    const yyyy = today.getFullYear();
 
-                                const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
 
-                                const dd = String(today.getDate()).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
 
-                                const currentDate = yyyy + "-" + mm + "-" + dd;
+    const currentDate = yyyy + "-" + mm + "-" + dd;
 
-                                startDate.min = currentDate;
+    startDate.min = currentDate;
 
-                                endDate.min = currentDate;
+    endDate.min = currentDate;
 
-                                startDate.addEventListener("change", function () {
+    startDate.addEventListener("change", function () {
 
-                                    endDate.min = this.value;
+        endDate.min = this.value;
 
-                                    if (endDate.value < this.value) {
+        if (endDate.value < this.value) {
+            endDate.value = this.value;
+        }
 
-                                        endDate.value = this.value;
+    });
 
-                                    }
+</script>
 
-                                });
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-                            </script>
+</body>
 
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-                            </body>
-
-                            </html>
+</html>

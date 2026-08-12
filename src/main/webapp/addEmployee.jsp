@@ -5,21 +5,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Employees</title>
+<meta charset="UTF-8">
+<title>Employees</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{
+    background:linear-gradient(135deg,#eeeaff,#eef6ff);
+    font-family:"Segoe UI",sans-serif;
+}
 
+.card{
+    border:0;
+    border-radius:18px;
+    background:linear-gradient(145deg,#fff,#f7f8ff);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(70,80,180,.15)!important;
+}
+
+h2{
+    color:#202a4d;
+    font-weight:700;
+}
+
+h4{
+    color:#384579;
+    font-weight:600;
+}
+
+.form-label{
+    color:#46517d;
+    font-weight:600;
+}
+
+.form-control,.form-select{
+    border:1px solid #dfe3f2;
+    border-radius:10px;
+    color:#384579;
+}
+
+.form-control:focus,.form-select:focus{
+    border-color:#5145e5;
+    box-shadow:0 0 0 3px rgba(81,69,229,.12);
+}
+
+.btn-primary{
+    border:0;
+    border-radius:10px;
+    background:linear-gradient(90deg,#5145e5,#2869e8);
+}
+
+.btn-warning{
+    border:0;
+    border-radius:10px;
+    background:#fff0c2;
+    color:#806000;
+}
+
+.btn-danger{
+    border:0;
+    border-radius:10px;
+    background:#ffe0e0;
+    color:#c03939;
+}
+
+.table thead{
+    background:#f1f3ff!important;
+}
+
+.table th{
+    color:#46517d;
+    font-weight:600;
+    border:0;
+}
+
+.table td{
+    color:#667085;
+    vertical-align:middle;
+}
+
+.alert{
+    border:0;
+    border-radius:12px;
+}
+
+.modal-content{
+    border:0;
+    border-radius:18px;
+}
+
+.modal-header.bg-danger{
+    background:#ffe0e0!important;
+    color:#c03939!important;
+}
+</style>
 </head>
-<body class="bg-light">
+
+<body>
 
 <div class="container mt-5">
 
-    <div class="card shadow">
+    <h2 class="mb-4">Employees</h2>
 
-        <div class="card-header">
-            <h3>Employees</h3>
-        </div>
+    <!-- ADD EMPLOYEE -->
+
+    <div class="card shadow mb-4">
 
         <div class="card-body">
 
@@ -33,18 +127,10 @@
 
             <c:if test="${not empty sessionScope.error}">
                 <div class="alert alert-danger alert-dismissible fade show">
-
                     ${sessionScope.error}
-
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="alert">
-                    </button>
-
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-
                 <c:remove var="error" scope="session"/>
-
             </c:if>
 
             <form action="addEmployee" method="post">
@@ -52,41 +138,25 @@
                 <div class="row">
 
                     <div class="col-md-4 mb-3">
-
                         <label class="form-label">Full Name</label>
-
-                        <input type="text"
-                              name="fullName"
-                               class="form-control"
-                               required>
-
+                        <input type="text" name="fullName" class="form-control" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
-
                         <label class="form-label">Work Email</label>
-
-                        <input type="email"
-                               name="email"
-                               class="form-control"
-                               required>
-
+                        <input type="email" name="email" class="form-control" required>
                     </div>
 
                     <div class="col-md-4 mb-3">
-
                         <label class="form-label">Department</label>
 
                         <select name="department" class="form-select" required>
-
                             <option value="">Select Department</option>
                             <option value="IT">IT</option>
                             <option value="HR">HR</option>
                             <option value="Finance">Finance</option>
                             <option value="People Operations">People Operations</option>
-
                         </select>
-
                     </div>
 
                 </div>
@@ -96,86 +166,78 @@
                 </button>
 
             </form>
-            <div class="card shadow mt-4">
 
-                <div class="card-body">
+        </div>
+    </div>
 
-                    <h4 class="mb-3">
-                        Employee List
-                    </h4>
+    <!-- EMPLOYEE LIST -->
 
-                    <div class="table-responsive">
+    <div class="card shadow mt-4">
 
-                        <table class="table table-hover">
+        <div class="card-body">
 
-                            <thead class="table-dark">
+            <h4 class="mb-3">Employee List</h4>
 
-                            <tr>
+            <div class="table-responsive">
 
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Department</th>
-                                <th>Role</th>
-                                <th>Action</th>
+                <table class="table table-hover">
 
-                            </tr>
+                    <thead>
 
-                            </thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
 
-                            <tbody>
+                    </thead>
 
-                            <c:forEach items="${employeeList}" var="employee">
+                    <tbody>
 
-                                <tr>
+                    <c:forEach items="${employeeList}" var="employee">
 
-                                    <td>${employee.fullName}</td>
+                        <tr>
 
-                                    <td>${employee.email}</td>
+                            <td>${employee.fullName}</td>
+                            <td>${employee.email}</td>
+                            <td>${employee.department}</td>
+                            <td>${employee.role}</td>
 
-                                    <td>${employee.department}</td>
+                            <td>
 
-                                    <td>${employee.role}</td>
+                                <a href="editEmployee?id=${employee.employeeId}"
+                                   class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
 
-                                    <td>
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="showDeleteModal(${employee.employeeId})">
+                                    Delete
+                                </button>
 
-                                        <a href="editEmployee?id=${employee.employeeId}"
-                                           class="btn btn-warning btn-sm">
-                                            Edit
-                                        </a>
+                            </td>
 
-                                        <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="showDeleteModal(${employee.employeeId})">
+                        </tr>
 
-                                            Delete
+                    </c:forEach>
 
-                                        </button>
+                    </tbody>
 
-                                    </td>
-
-                                </tr>
-
-                            </c:forEach>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
+                </table>
 
             </div>
 
         </div>
-
     </div>
 
 </div>
-<!-- Delete Confirmation Modal -->
-<div class="modal fade"
-     id="deleteModal"
-     tabindex="-1">
+
+<!-- DELETE MODAL -->
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
 
     <div class="modal-dialog modal-dialog-centered">
 
@@ -183,9 +245,7 @@
 
             <div class="modal-header bg-danger text-white">
 
-                <h5 class="modal-title">
-                    Confirm Delete
-                </h5>
+                <h5 class="modal-title">Confirm Delete</h5>
 
                 <button type="button"
                         class="btn-close btn-close-white"
@@ -195,9 +255,7 @@
             </div>
 
             <div class="modal-body">
-
                 Are you sure you want to delete this employee?
-
             </div>
 
             <div class="modal-footer">
@@ -205,29 +263,22 @@
                 <button type="button"
                         class="btn btn-secondary"
                         data-bs-dismiss="modal">
-
                     Cancel
-
                 </button>
 
                 <a id="deleteBtn"
                    href="#"
                    class="btn btn-danger">
-
                     Delete
-
                 </a>
 
             </div>
 
         </div>
-
     </div>
-
 </div>
 
 <script>
-
 function showDeleteModal(employeeId)
 {
     document.getElementById("deleteBtn").href =
@@ -237,7 +288,6 @@ function showDeleteModal(employeeId)
         document.getElementById("deleteModal")
     ).show();
 }
-
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
